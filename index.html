@@ -13,7 +13,7 @@
 <body>
   
   <h1>OpnWrld</h1>
-  <div id="mapContainer" style="position: center; max-height: 100% overflow:auto"></div>
+  <div id="mapContainer" style="position: center; max-height: 100%"></div>
  
      
      <script>
@@ -25,7 +25,7 @@
         element: document.getElementById('mapContainer'),
         popupOnHover: false,
         highlightOnHover: false,
-        projection: 'mercator',
+        projection: 'equirectangular',
         
         fills: {
           defaultFill: '#f0af0a',
@@ -45,31 +45,36 @@
          }
 
       });
+       
+       function hoverInfo(geo, data) {
+         return ['<div class="hoverinfo">' +  data.headline, 
+                  '<br/>Payload: ' +  data.location + '',
+                  '</div>'].join('');
+       }
       
-         function createBubble(lat,lon)
-         {
+         function addBubble(lat,lon) {
              bubblesArray.push({name: 'Magic Bubble!', latitude: lat, longitude: lon, radius: 10, fillKey: 'gt50', headline: 'NEWS: blah blah blah', location: 'Norway'});
-       //bubbles, custom popup on hover template
+         }
+         
+         function redrawBubbles() {
+             //bubbles, custom popup on hover template
              map.bubbles(
               bubblesArray,
               {
-                popupTemplate: function (geo, data) { 
-                  return ['<div class="hoverinfo">' +  data.headline, 
-                  '<br/>Payload: ' +  data.location + '',
-                  '</div>'].join('');
-                }
+                popupTemplate: hoverInfo
               });
-         };
+         }
         
        
        
-        // Grabs the coords for the resultant country (city later on)
+        // Draws a bubble at an address checked by Google Maps
         function drawBubbleAtAddress(addressString) {
             geocoder.geocode( { address: addressString}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     lat = results[0].geometry.location.lat();
                     lon = results[0].geometry.location.lng();
-                    createBubble(lat,lon);
+                    addBubble(lat,lon);
+                    redrawBubbles();
                 } else {
                     console.log("Geocode was not successful for the following reason: " + status);
                 }

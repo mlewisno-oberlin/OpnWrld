@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="bin/d3.v3.min.js"></script>
+  <script src="bin/topojson.v1.min.js"></script>
   <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-  <h2>Datamaps Playground</h2>
-  <p><a href="http://datamaps.github.io/">DataMaps Project Homepage</a></p>
-  <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
+  <h2>OpnWrld</h2>
+  <div id="container1" style="position: center; width: 80%; max-height: 450px;"></div>
  
      
      <script>
@@ -16,50 +15,24 @@
         element: document.getElementById('container1'),
         projection: 'mercator',
         
-        fills: {
-          defaultFill: '#f0af0a',
-          lt50: 'rgba(0,244,244,0.9)',
-          gt50: 'red'
-        },
+        // fills: {
+        //   defaultFill: '#f0af0a',
+        //   lt50: 'rgba(0,244,244,0.9)',
+        //   gt50: 'red'
+        // },
         
-        data: {
-          USA: {fillKey: 'lt50' },
-          RUS: {fillKey: 'lt50' },
-          CAN: {fillKey: 'lt50' },
-          BRA: {fillKey: 'gt50' },
-          ARG: {fillKey: 'gt50'},
-          COL: {fillKey: 'gt50' },
-          AUS: {fillKey: 'gt50' },
-          ZAF: {fillKey: 'gt50' },
-          MAD: {fillKey: 'gt50' }       
-        }
+        // data: {
+        //   USA: {fillKey: 'lt50' },
+        //   RUS: {fillKey: 'lt50' },
+        //   CAN: {fillKey: 'lt50' },
+        //   BRA: {fillKey: 'gt50' },
+        //   ARG: {fillKey: 'gt50'},
+        //   COL: {fillKey: 'gt50' },
+        //   AUS: {fillKey: 'gt50' },
+        //   ZAF: {fillKey: 'gt50' },
+        //   MAD: {fillKey: 'gt50' }       
+        // }
       })
-      
-      
-      //sample of the arc plugin
-      map.arc([
-       {
-        origin: {
-            latitude: 40.639722,
-            longitude: 73.778889
-        },
-        destination: {
-            latitude: 37.618889,
-            longitude: -122.375
-        }
-      },
-      {
-          origin: {
-              latitude: 30.194444,
-              longitude: -97.67
-          },
-          destination: {
-              latitude: 25.793333,
-              longitude: -0.290556
-          }
-      }
-      ], {strokeWidth: 2});
-       
       
        //bubbles, custom popup on hover template
      map.bubbles([

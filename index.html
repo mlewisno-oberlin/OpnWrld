@@ -144,7 +144,6 @@
         function createCountryBubble() {
             countrySearchString = document.getElementById("search").value;
             countryName = findCountryName(countrySearchString);
-<<<<<<< HEAD
             drawBubbleAtAddress(countryName);
         }
             
@@ -157,16 +156,3 @@
     </form>
 
 </body>
-=======
-            coordsDict = getLatLon(countryName);
-            lat = latLonDict["lat"];
-            lon = latLonDict["lon"];
-            alert("creating bubble for " + countryName + " at " + lat + ", " + lon);
-            createBubble(lat,lon);
-        }   
-      </script>
-
-Enter a country: <input type="text" id="country_search_query"><br>
-Submit: <input type="button" value="Submit" onclick="createCountryBubble()">
-</body>
->>>>>>> origin/master

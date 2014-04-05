@@ -1,0 +1,18 @@
+{
+    "source": "New York Times",
+    "article-1": {
+        "article-name": "Blah about Obama",
+        "author": "John Doe",
+        "location": "London",
+        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.",
+        "link": "http://stuffsucks.com"
+    },
+    "article-2": {
+        "article-name": "Blah about Obama2",
+        "author": "John Doe2",
+        "location": "London2",
+        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.2",
+        "link": "http://stuffsucks.com2"
+    }
+}
+        

@@ -22,13 +22,21 @@
       var map = new Datamap({
         scope: 'world',
         element: document.getElementById('container1'),
+        popupOnHover: false,
+        highlightOnHover: false,
         projection: 'mercator',
         
-         fills: {
-           defaultFill: '#f0af0a',
-           lt50: 'rgba(0,244,244,0.9)',
-           gt50: 'red'
-         }, 
+<<<<<<< HEAD
+        fills: {
+          defaultFill: '#f0af0a',
+          lt50: 'rgba(0,244,244,0.9)',
+          gt50: 'red'
+        }, 
+
+        geographyConfig: {
+          popupOnHover: false,
+          highlightOnHover: false
+        }
         
         // data: {
         //   USA: {fillKey: 'lt50' },
@@ -41,54 +49,80 @@
         //   ZAF: {fillKey: 'gt50' },
         //   MAD: {fillKey: 'gt50' }       
         // }
+=======
+         fills: {
+           defaultFill: '#f0af0a',
+           lt50: 'rgba(0,244,244,0.9)',
+           gt50: 'red'
+         }
+>>>>>>> FETCH_HEAD
       });
       
          function createBubble(lat,lon)
          {
-             bubblesArray.push({name: 'Magic Bubble!', latitude: lat, longitude: lon, radius: 10, fillKey: 'gt50'});
+             bubblesArray.push({name: 'Magic Bubble!', latitude: lat, longitude: lon, radius: 10, fillKey: 'gt50', headline: 'NEWS: blah blah blah', location: 'Norway'});
        //bubbles, custom popup on hover template
-     map.bubbles(bubblesArray);
-         }
+             map.bubbles(
+              bubblesArray,
+              {
+                popupTemplate: function (geo, data) { 
+                  return ['<div class="hoverinfo">' +  data.headline, 
+                  '<br/>Payload: ' +  data.location + '',
+                  '</div>'].join('');
+                }
+              });
+         };
          
      </script>
     <script>
-        geocoder = new google.maps.Geocoder();
         
+        geocoder = new google.maps.Geocoder();
+        // Placeholder latitude and longitude dictionary
+        var latLonDict = {};
+        
+        function setLatLon(dict) {
+            latLonDict = dict;
+        }
+       
         // Grabs the coords for the resultant country (city later on)
         function getLatLon(countryString) {
             geocoder.geocode( { address: countryString}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                   lon = results[0].geometry.location.lng();
-                    lat = results[0].geometry.location.lat();
-                    return {lat: lat, lon: lon};
+                    dict = {"lon": results[0].geometry.location.lng(), "lat": results[0].geometry.location.lat()};
+                    // Callback function to pass lat and lon
+                    setLatLon(dict);
                 } else {
-                alert("Geocode was not successful for the following reason: " + status);
+                    console.log("Geocode was not successful for the following reason: " + status);
+                    setLatLon(null);
                 }
             });
         }
         
         // Parses out the locale from a string, will get called once per article on the title
         function findCountryName(countrySearchString){
+            
             foundCountriesArray = getLocale(countrySearchString)
             if(foundCountriesArray[0]==true){
                 return foundCountriesArray[1];
             }
-            else{
+            else {
                 console.log("Country " + countrySearchString + " not found! Defaulting to U.K.");
                 return "United Kingdom";
             }
         }
         
-        function createCountryBubble(countrySearchString) {
+        function createCountryBubble() {
+            countrySearchString = document.getElementById("country_search_query").value;
             countryName = findCountryName(countrySearchString);
             coordsDict = getLatLon(countryName);
-            lat = coordsDict[lat];
-            lon = coordsDict[lon];
+            lat = latLonDict["lat"];
+            lon = latLonDict["lon"];
+            alert("creating bubble for " + countryName + " at " + lat + ", " + lon);
             createBubble(lat,lon);
         }
             
         
       </script>
 Enter a country: <input type="text" id="country_search_query"><br>
-Submit: <input type="button" value="Submit" onclick="findCountryName()">
+Submit: <input type="button" value="Submit" onclick="createCountryBubble()">
 </body>

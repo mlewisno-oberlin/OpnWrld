@@ -2,7 +2,7 @@ function getLocale(stuff){
     for (var i=0; i<stuff.length; i++){
         for(var j=0; j<stuff.length - i + 1; j++){
             if(check(stuff.substring(i,i+j))){
-                return check(stuff.substring(i,i+j));
+                return [check(stuff.substring(i,i+j)), stuff.substring(i,i+j)];
             }
         }
     }

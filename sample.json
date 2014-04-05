@@ -1,24 +1,36 @@
 {
-    "result": [
-    
-        {
-        "article-name": "Blah about Obama",
-        "author": "John Doe",
-        "location": "London",
-        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.",
-        "link": "http://www.google.com",
-        "pic-src": "http://www.google.com/imgres?imgurl=&imgrefurl=http%3A%2F%2Fthemommygamers.com%2F2013%2F09%2Fnational-cheese-pizza-day-september-5th%2F&h=0&w=0&tbnid=A0OPbGYIU3q4XM&zoom=1&tbnh=183&tbnw=275&docid=tzVS1298w35I4M&tbm=isch&ei=x3lAU-etD4fw0gGf5YCgDw&ved=0CAUQsCUoAQ"
-        },
-    
-        {
-        "article-name": "Blah about Obama2",
-        "author": "John Doe2",
-        "location": "London2",
-        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.2",
-        "link": "http://stuffsucks.com2",
-        "pic-src": "http://www.google.com/imgres?imgurl=&imgrefurl=http%3A%2F%2Fthemommygamers.com%2F2013%2F09%2Fnational-cheese-pizza-day-september-5th%2F&h=0&w=0&tbnid=A0OPbGYIU3q4XM&zoom=1&tbnh=183&tbnw=275&docid=tzVS1298w35I4M&tbm=isch&ei=x3lAU-etD4fw0gGf5YCgDw&ved=0CAUQsCUoAQ"
-        }
-    
-    ]
+  "result": [
+    {
+      "author": "By DYLAN LOEB McCLAIN",
+      "pic": "",
+      "link": "http://www.nytimes.com/2014/04/06/crosswords/chess/tasting-early-success-only-to-walk-away.html",
+      "location": "",
+      "title": "Tasting Early Success, Only to Walk Away",
+      "opening": "Ilya Gurevich and Tal Shaked won the World Junior Chess Championships in the 1990s, but neither of them pursued chess careers as adults."
+    },
+    {
+      "author": "",
+      "pic": "",
+      "link": "http://www.nytimes.com/interactive/2014/04/05/us/forthood04-victim-wall.html",
+      "location": "",
+      "title": "The Victims of Fort Hood",
+      "opening": "A gunman killed three people and wounded 16 others before killing himself at Fort Hood, the same sprawling Army base in Texas where in 2009 an officer went on a shooting rampage that left 13 people dead."
+    },
+    {
+      "author": "By DEB AMLEN",
+      "pic": "",
+      "link": "http://wordplay.blogs.nytimes.com/2014/04/05/at-times/",
+      "location": "",
+      "title": "At Times",
+      "opening": "A puzzle by Patrick Berry that I enjoyed, at times."
+    },
+    {
+      "author": "By THE ASSOCIATED PRESS",
+      "pic": "",
+      "link": "http://www.nytimes.com/2014/04/06/us/archbishop-says-he-plans-to-sell-2-million-home.html",
+      "location": "Atlanta (Ga)",
+      "title": "Archbishop Says He Plans to Sell $2 Million Home",
+      "opening": "A group of Catholics in the archdiocese in Atlanta had asked that Archbishop Wilton D. Gregory sell the more than 6,000-square-foot home in keeping with the tone of austerity set by Pope Francis."
+    }
+  ]
 }
-        

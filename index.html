@@ -43,8 +43,8 @@
   </head>
   <body>
    
-
     <script>
+    // In theory this will make a great big awesome map of awesomeness...
     var m_width = $("#map").width(),
         width = 938,
         height = 500,
@@ -182,6 +182,7 @@
       <script>
         geocoder = new google.maps.Geocoder();
         
+        // Grabs the coords for the resultant country (city later on)
         function codeAddress(stuff) {
             geocoder.geocode( { address: stuff}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -192,7 +193,8 @@
                 }
             });
         }
-          
+        
+        // Parses out the locale from a string, will get called once per article on the title
         function getCoords(){
             var ourString = document.getElementById('ad_search_query').value;
             console.log(ourString);

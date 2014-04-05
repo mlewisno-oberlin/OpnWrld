@@ -6,7 +6,7 @@
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="parser.js"></script>
+    <script src="guardian_parser.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
     <style>
     #map {
@@ -202,6 +202,9 @@
             ourString = ourArray[0];
             if(ourString==true){
                 codeAddress(ourArray[1]);
+            }
+            else{
+                codeAddress("United Kingdon");
             }
         }
         

@@ -1,18 +1,15 @@
-var countrySearchString;
-function getLocale(countrySearchString) {
-    if (countrySearchString !== undefined) {
-        for (var i=0; i<countrySearchString.length; i++) {
-            for(var j=0; j<countrySearchString.length - i + 1; j++) {
-                if(check(countrySearchString.substring(i,i+j))) {
-                    return [check(countrySearchString.substring(i,i+j)), countrySearchString.substring(i,i+j)];
-                }
+function getLocale(stuff){
+    for (var i=0; i<stuff.length; i++){
+        for(var j=0; j<stuff.length - i + 1; j++){
+            if(check(stuff.substring(i,i+j))){
+                return [check(stuff.substring(i,i+j)), stuff.substring(i,i+j)];
             }
         }
     }
     return "not found!";
 }
 
-function check(countrySearchString){
+function check(stuff){
     var regions=["Afghanistan",
         "Albania",
         "Algeria",
@@ -221,10 +218,10 @@ function check(countrySearchString){
         "Zimbabwe",
     ];
        for(var m = 0; m<regions.length; m++){
-                 if(regions[m][0] === countrySearchString[0]){
-                    console.log(countrySearchString + " compared to " + regions[m]);
+                 if(regions[m][0] === stuff[0]){
+                    console.log(stuff + " compared to " + regions[m]);
                  }
-                 if(regions[m].toLowerCase() === countrySearchString.toLowerCase()){
+                 if(regions[m].toLowerCase() === stuff.toLowerCase()){
                      return true;
                  }
         }

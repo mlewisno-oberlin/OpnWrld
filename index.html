@@ -5,6 +5,43 @@
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="guardian_parser.js"></script>
+    <script src="nyt_parser.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <style>
+    #map {
+      background-color: #fff;
+      border: 5px solid #ccc;
+        height: 500px;
+    }
+    .background {
+      fill: none;
+      pointer-events: all;
+    }
+    #countries, #states {
+      fill: #cde;
+      stroke: #fff;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    #countries .active, #states .active {
+      fill: #89a;
+    }
+    #cities {
+      stroke-width: 0;
+    }
+    .city {
+      fill: #345;
+      stroke: #fff;
+    }
+    pre.prettyprint {
+      border: 1px solid #ccc;
+      margin-bottom: 0;
+      padding: 9.5px;
+    }
+    </style>
+  </head>
+
     <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
     <script src="guardian_parser.js"></script>
 </head>
@@ -73,6 +110,7 @@
          };
          
      </script>
+
     <script>
         
         geocoder = new google.maps.Geocoder();
@@ -106,6 +144,7 @@
         function createCountryBubble() {
             countrySearchString = document.getElementById("search").value;
             countryName = findCountryName(countrySearchString);
+<<<<<<< HEAD
             drawBubbleAtAddress(countryName);
         }
             
@@ -118,3 +157,16 @@
     </form>
 
 </body>
+=======
+            coordsDict = getLatLon(countryName);
+            lat = latLonDict["lat"];
+            lon = latLonDict["lon"];
+            alert("creating bubble for " + countryName + " at " + lat + ", " + lon);
+            createBubble(lat,lon);
+        }   
+      </script>
+
+Enter a country: <input type="text" id="country_search_query"><br>
+Submit: <input type="button" value="Submit" onclick="createCountryBubble()">
+</body>
+>>>>>>> origin/master

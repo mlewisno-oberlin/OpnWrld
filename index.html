@@ -180,11 +180,28 @@
        <div id="map"></div>
       <div id="stuff"></div>
       <script>
+        geocoder = new google.maps.Geocoder();
+        
+        function codeAddress() {
+            stuff = document.getElementById('ad_search_query').value;
+            geocoder.geocode( { address: stuff}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results[0].geometry.location.lng());
+                    console.log(results[0].geometry.location.lat());
+                } else {
+                alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        }
+          
         function getCoords(){
             var ourString = document.getElementById('ad_search_query').value;
+            console.log(ourString);
             ourString = getLocale(ourString);
             console.log(ourString);
+            codeAddress(ourString);
         }
+        
       </script>
       <input type="text" id="ad_search_query">
       <input type="submit" value="Submit" onclick="getCoords()">

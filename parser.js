@@ -207,6 +207,7 @@ function check(stuff){
         "Ukraine",
         "United Arab Emirates",
         "United Kingdom",
+        "United States",
         "Uruguay",
         "Uzbekistan",
         "Vanuatu",

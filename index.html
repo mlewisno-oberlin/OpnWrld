@@ -42,23 +42,16 @@
     <script>
         
         geocoder = new google.maps.Geocoder();
-        // Placeholder latitude and longitude dictionary
-        var latLonDict = {};
-        
-        function setLatLon(dict) {
-            latLonDict = dict;
-        }
        
         // Grabs the coords for the resultant country (city later on)
-        function getLatLon(countryString) {
-            geocoder.geocode( { address: countryString}, function(results, status) {
+        function drawBubbleAtAddress(addressString) {
+            geocoder.geocode( { address: addressString}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    dict = {"lon": results[0].geometry.location.lng(), "lat": results[0].geometry.location.lat()};
-                    // Callback function to pass lat and lon
-                    setLatLon(dict);
+                    lat = results[0].geometry.location.lat();
+                    lon = results[0].geometry.location.lng();
+                    createBubble(lat,lon);
                 } else {
                     console.log("Geocode was not successful for the following reason: " + status);
-                    setLatLon(null);
                 }
             });
         }
@@ -77,17 +70,17 @@
         }
         
         function createCountryBubble() {
-            countrySearchString = document.getElementById("country_search_query").value;
+            countrySearchString = document.getElementById("search").value;
             countryName = findCountryName(countrySearchString);
-            coordsDict = getLatLon(countryName);
-            lat = latLonDict["lat"];
-            lon = latLonDict["lon"];
-            alert("creating bubble for " + countryName + " at " + lat + ", " + lon);
-            createBubble(lat,lon);
+            drawBubbleAtAddress(countryName);
         }
             
         
       </script>
-Enter a country: <input type="text" id="country_search_query"><br>
-Submit: <input type="button" value="Submit" onclick="createCountryBubble()">
+    <form action="#" onsubmit="createCountryBubble(this.countrySearchString.value); return false">
+        Enter a country: <input type="text" name="countrySearchString" id="search">
+        <br>
+        Submit: <input type="submit" value="Bubble!">
+    </form>
+
 </body>

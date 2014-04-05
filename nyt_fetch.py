@@ -2,8 +2,8 @@
 import requests, json, pprint
 
 def main():
-	api_key = "a5b6d9051976110fda3d0563f0a7cc1e:6:67761527"
-	nyt_url = "http://api.nytimes.com/svc/news/v3/content/all/all/.json.json.json.json"
+	api_key = 'a5b6d9051976110fda3d0563f0a7cc1e:6:67761527'
+	nyt_url = 'http://api.nytimes.com/svc/news/v3/content/all/all/.json.json.json.json'
 
 	payload = {
 		'limit': 4,
@@ -11,11 +11,25 @@ def main():
 	}
 
 	r = requests.get(nyt_url, params=payload)
-	content = json.loads(r.content)
-	pprint.pprint(content)
+	data = json.loads(r.content)
+	stories = []
 
-	for story in content['results']:
-		print story['title']
+	for story in data['results']:
+
+		dict = {
+			'title': story['title'],
+			'author': story['byline'],
+			'location': story['geo_facet'][0] if story['geo_facet'] else '',
+			'opening': story['abstract'],
+			'link': story['url'],
+			'pic': story['thumbnail_standard']
+			}
+
+		stories.append(dict)
+
+	rtn = json.dumps({'result': stories})
+	
+	
 
 main()
 

@@ -22,21 +22,55 @@
       var map = new Datamap({
         scope: 'world',
         element: document.getElementById('container1'),
+        popupOnHover: false,
+        highlightOnHover: false,
         projection: 'mercator',
         
+        fills: {
+          defaultFill: '#f0af0a',
+          lt50: 'rgba(0,244,244,0.9)',
+          gt50: 'red'
+        }, 
+
+        geographyConfig: {
+          popupOnHover: false,
+          highlightOnHover: false
+        },
+        
+        // data: {
+        //   USA: {fillKey: 'lt50' },
+        //   RUS: {fillKey: 'lt50' },
+        //   CAN: {fillKey: 'lt50' },
+        //   BRA: {fillKey: 'gt50' },
+        //   ARG: {fillKey: 'gt50'},
+        //   COL: {fillKey: 'gt50' },
+        //   AUS: {fillKey: 'gt50' },
+        //   ZAF: {fillKey: 'gt50' },
+        //   MAD: {fillKey: 'gt50' }       
+        // }
+
          fills: {
            defaultFill: '#f0af0a',
            lt50: 'rgba(0,244,244,0.9)',
            gt50: 'red'
          }
+
       });
       
          function createBubble(lat,lon)
          {
-             bubblesArray.push({name: 'Magic Bubble!', latitude: lat, longitude: lon, radius: 10, fillKey: 'gt50'});
+             bubblesArray.push({name: 'Magic Bubble!', latitude: lat, longitude: lon, radius: 10, fillKey: 'gt50', headline: 'NEWS: blah blah blah', location: 'Norway'});
        //bubbles, custom popup on hover template
-     map.bubbles(bubblesArray);
-         }
+             map.bubbles(
+              bubblesArray,
+              {
+                popupTemplate: function (geo, data) { 
+                  return ['<div class="hoverinfo">' +  data.headline, 
+                  '<br/>Payload: ' +  data.location + '',
+                  '</div>'].join('');
+                }
+              });
+         };
          
      </script>
     <script>

@@ -28,19 +28,7 @@
            defaultFill: '#f0af0a',
            lt50: 'rgba(0,244,244,0.9)',
            gt50: 'red'
-         }, 
-        
-        // data: {
-        //   USA: {fillKey: 'lt50' },
-        //   RUS: {fillKey: 'lt50' },
-        //   CAN: {fillKey: 'lt50' },
-        //   BRA: {fillKey: 'gt50' },
-        //   ARG: {fillKey: 'gt50'},
-        //   COL: {fillKey: 'gt50' },
-        //   AUS: {fillKey: 'gt50' },
-        //   ZAF: {fillKey: 'gt50' },
-        //   MAD: {fillKey: 'gt50' }       
-        // }
+         }
       });
       
          function createBubble(lat,lon)
@@ -52,43 +40,54 @@
          
      </script>
     <script>
-        geocoder = new google.maps.Geocoder();
         
+        geocoder = new google.maps.Geocoder();
+        // Placeholder latitude and longitude dictionary
+        var latLonDict = {};
+        
+        function setLatLon(dict) {
+            latLonDict = dict;
+        }
+       
         // Grabs the coords for the resultant country (city later on)
         function getLatLon(countryString) {
             geocoder.geocode( { address: countryString}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                   lon = results[0].geometry.location.lng();
-                    lat = results[0].geometry.location.lat();
-                    return {lat: lat, lon: lon};
+                    dict = {"lon": results[0].geometry.location.lng(), "lat": results[0].geometry.location.lat()};
+                    // Callback function to pass lat and lon
+                    setLatLon(dict);
                 } else {
-                alert("Geocode was not successful for the following reason: " + status);
+                    console.log("Geocode was not successful for the following reason: " + status);
+                    setLatLon(null);
                 }
             });
         }
         
         // Parses out the locale from a string, will get called once per article on the title
         function findCountryName(countrySearchString){
+            
             foundCountriesArray = getLocale(countrySearchString)
             if(foundCountriesArray[0]==true){
                 return foundCountriesArray[1];
             }
-            else{
+            else {
                 console.log("Country " + countrySearchString + " not found! Defaulting to U.K.");
                 return "United Kingdom";
             }
         }
         
-        function createCountryBubble(countrySearchString) {
+        function createCountryBubble() {
+            countrySearchString = document.getElementById("country_search_query").value;
             countryName = findCountryName(countrySearchString);
             coordsDict = getLatLon(countryName);
-            lat = coordsDict[lat];
-            lon = coordsDict[lon];
+            lat = latLonDict["lat"];
+            lon = latLonDict["lon"];
+            alert("creating bubble for " + countryName + " at " + lat + ", " + lon);
             createBubble(lat,lon);
         }
             
         
       </script>
 Enter a country: <input type="text" id="country_search_query"><br>
-Submit: <input type="button" value="Submit" onclick="findCountryName()">
+Submit: <input type="button" value="Submit" onclick="createCountryBubble()">
 </body>

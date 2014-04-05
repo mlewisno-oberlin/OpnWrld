@@ -5,60 +5,24 @@
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
     <script src="guardian_parser.js"></script>
     <script src="nyt_parser.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-    <style>
-    #map {
-      background-color: #fff;
-      border: 5px solid #ccc;
-        height: 500px;
-    }
-    .background {
-      fill: none;
-      pointer-events: all;
-    }
-    #countries, #states {
-      fill: #cde;
-      stroke: #fff;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-    }
-    #countries .active, #states .active {
-      fill: #89a;
-    }
-    #cities {
-      stroke-width: 0;
-    }
-    .city {
-      fill: #345;
-      stroke: #fff;
-    }
-    pre.prettyprint {
-      border: 1px solid #ccc;
-      margin-bottom: 0;
-      padding: 9.5px;
-    }
-    </style>
-  </head>
-
-    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-    <script src="guardian_parser.js"></script>
 </head>
 <body>
   
-  <h2>OpnWrld</h2>
-  <div id="container1" style="position: center; width: 80%; max-height: 450px;"></div>
+  <h1>OpnWrld</h1>
+  <div id="mapContainer" style="position: center; width: 80%; max-height: 450px;"></div>
  
      
      <script>
+         geocoder = new google.maps.Geocoder();
          bubblesArray = [];
-         
-       //basic map config with custom fills, mercator projection
-        
+
       var map = new Datamap({
         scope: 'world',
-        element: document.getElementById('container1'),
+        element: document.getElementById('mapContainer'),
         popupOnHover: false,
         highlightOnHover: false,
         projection: 'mercator',
@@ -73,19 +37,7 @@
           popupOnHover: false,
           highlightOnHover: false
         },
-        
-        // data: {
-        //   USA: {fillKey: 'lt50' },
-        //   RUS: {fillKey: 'lt50' },
-        //   CAN: {fillKey: 'lt50' },
-        //   BRA: {fillKey: 'gt50' },
-        //   ARG: {fillKey: 'gt50'},
-        //   COL: {fillKey: 'gt50' },
-        //   AUS: {fillKey: 'gt50' },
-        //   ZAF: {fillKey: 'gt50' },
-        //   MAD: {fillKey: 'gt50' }       
-        // }
-
+          
          fills: {
            defaultFill: '#f0af0a',
            lt50: 'rgba(0,244,244,0.9)',
@@ -108,12 +60,8 @@
                 }
               });
          };
-         
-     </script>
-
-    <script>
         
-        geocoder = new google.maps.Geocoder();
+       
        
         // Grabs the coords for the resultant country (city later on)
         function drawBubbleAtAddress(addressString) {
@@ -130,7 +78,6 @@
         
         // Parses out the locale from a string, will get called once per article on the title
         function findCountryName(countrySearchString){
-            
             foundCountriesArray = getLocale(countrySearchString)
             if(foundCountriesArray[0]==true){
                 return foundCountriesArray[1];
@@ -141,8 +88,7 @@
             }
         }
         
-        function createCountryBubble() {
-            countrySearchString = document.getElementById("search").value;
+        function createCountryBubble(countrySearchString) {
             countryName = findCountryName(countrySearchString);
             drawBubbleAtAddress(countryName);
         }
@@ -150,7 +96,7 @@
         
       </script>
     <form action="#" onsubmit="createCountryBubble(this.countrySearchString.value); return false">
-        Enter a country: <input type="text" name="countrySearchString" id="search">
+        Enter a country: <input type="text" name="countrySearchString">
         <br>
         Submit: <input type="submit" value="Bubble!">
     </form>

@@ -200,9 +200,9 @@
             console.log(ourString);
             ourArray=getLocale(ourString)
             ourString = ourArray[0];
-            console.log("Our returned array boolean result: " + ourArray[0]);
-            console.log("Our returned array string result: " + ourArray[1]);
-            codeAddress(ourArray[1]);
+            if(ourString==true){
+                codeAddress(ourArray[1]);
+            }
         }
         
       </script>

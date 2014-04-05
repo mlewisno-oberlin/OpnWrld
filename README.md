@@ -14,6 +14,12 @@ Use the coords to add a point on the map
 Use the mouse over function to allow for the article to be "popped up"
 
 
+Our APIs
+
+http://dev.mashery.com/apis#media
+http://www.theguardian.com/open-platform/content-api-content-search-reference-guide?guni=Article:in%20body%20link
+
+
 Resources:
 
 Our python server tutorial
@@ -23,3 +29,6 @@ Our map tutorial:
 http://www.tnoda.com/blog/2013-12-07
 
 Our sample JSON 
+
+JQUERY shtuff
+http://api.jquery.com/hover/

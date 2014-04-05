@@ -1,0 +1,20 @@
+{
+    "source": "New York Times",
+    "article-1": {
+        "article-name": "Blah about Obama",
+        "author": "John Doe",
+        "location": "London",
+        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.",
+        "link": "http://www.google.com",
+        "pic-src": "http://www.google.com/imgres?imgurl=&imgrefurl=http%3A%2F%2Fthemommygamers.com%2F2013%2F09%2Fnational-cheese-pizza-day-september-5th%2F&h=0&w=0&tbnid=A0OPbGYIU3q4XM&zoom=1&tbnh=183&tbnw=275&docid=tzVS1298w35I4M&tbm=isch&ei=x3lAU-etD4fw0gGf5YCgDw&ved=0CAUQsCUoAQ"
+    },
+    "article-2": {
+        "article-name": "Blah about Obama2",
+        "author": "John Doe2",
+        "location": "London2",
+        "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.2",
+        "link": "http://stuffsucks.com2",
+        "pic-src": "http://www.google.com/imgres?imgurl=&imgrefurl=http%3A%2F%2Fthemommygamers.com%2F2013%2F09%2Fnational-cheese-pizza-day-september-5th%2F&h=0&w=0&tbnid=A0OPbGYIU3q4XM&zoom=1&tbnh=183&tbnw=275&docid=tzVS1298w35I4M&tbm=isch&ei=x3lAU-etD4fw0gGf5YCgDw&ved=0CAUQsCUoAQ"
+    }
+}
+        

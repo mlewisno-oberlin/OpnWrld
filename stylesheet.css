@@ -1,7 +1,17 @@
 body{
     height: 100%;
+    border: solid black 10px;
+    border-radius: 15px;
+    height: 100%;
 }
 
 .hoverinfo {
     color:blue;
+}
+
+h1{
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 70px;
+    text-decoration: underline;
 }

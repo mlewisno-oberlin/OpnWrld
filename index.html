@@ -69,6 +69,8 @@
 
 
     <script>
+        var articles = [ ];
+        
         geocoder = new google.maps.Geocoder();
         bubblesArray = [];
          // EDIT MEEEEEE
@@ -175,6 +177,17 @@
             countryName = findCountryName(countrySearchString);
             drawBubbleAtAddress(countryName);
         }
+        
+        $(document).ready(function ($) {
+        console.log(articles.length);
+        $.getJSON("sample.json",    function (data) {
+        console.log(data.result);
+        for(var i = 0; i < data.result.length; i++){
+        iterateJSON(data.result[i]);
+        }
+        console.log(articles);
+        });
+        });
             
       </script>
 

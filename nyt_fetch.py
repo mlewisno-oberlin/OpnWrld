@@ -23,7 +23,8 @@ def main():
 			'location': story['geo_facet'][0] if story['geo_facet'] else '',
 			'opening': story['abstract'],
 			'link': story['url'],
-			'pic': story['thumbnail_standard']
+			'pic': story['thumbnail_standard'],
+			'date': re.match('..........', story['updated_date']).group()
 			}
 
 		stories.append(dict)

@@ -31,7 +31,7 @@
 
 <body>
     
-    <div id="jumbotron"><h1>OpnWrld</h1></div>
+    <div id="jumbotron">OpnWrld</div>
     <div id="mapContainer"></div>
     <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
 
@@ -42,7 +42,49 @@
         bubblesArray = [];
         var BUBBLE_SIZE = 10; // EDIT MEEEEEE FOR BIIIIIG BUBBLES! (or tiny!)
         var BUBBLE_INTERVAL_TIME = 1000; // Time between bubbles appearing (in ms)
-        $('#jumbotron').fitText();
+        $("#jumbotron").fitText();
+        var map = new Datamap({
+                scope: 'world',
+                element: document.getElementById('mapContainer'),
+                popupOnHover: false,
+                highlightOnHover: false,
+                projection: 'equirectangular',
+                done: loadJSONArticles,
+                fills: {
+                    defaultFill: '#000000',
+                    gt50: 'red'
+                },
+
+                geographyConfig: {
+                    popupOnHover: false,
+                    highlightOnHover: false
+
+                },
+
+            });
+        
+        function rebuildMap() {
+            $('#mapContainer').empty();
+            map = new Datamap({
+                scope: 'world',
+                element: document.getElementById('mapContainer'),
+                popupOnHover: false,
+                highlightOnHover: false,
+                projection: 'equirectangular',
+                fills: {
+                    defaultFill: '#000000',
+                    gt50: 'red'
+                },
+
+                geographyConfig: {
+                    popupOnHover: false,
+                    highlightOnHover: false
+
+                },
+
+            });
+            redrawBubbles();
+        }
         
         function loadJSONArticles() {
             for (var x = 0; x < articlesJSONAddresses.length;x++) {
@@ -56,30 +98,9 @@
             }
         }
         
-        // Initialize the map
-        var map = new Datamap({
-            scope: 'world',
-            element: document.getElementById('mapContainer'),
-            popupOnHover: false,
-            highlightOnHover: false,
-            projection: 'equirectangular',
-            done: loadJSONArticles,
-            fills: {
-                defaultFill: '#000000',
-                gt50: 'red'
-            },
-
-            geographyConfig: {
-                popupOnHover: false,
-                highlightOnHover: false
-                
-            },
-
-        });
-        
+            
         function loadArticles(articlesArray) {
                 article = articlesArray.pop();
-                console.log("adding: " + article);
                 addBubbleAtAddress(article,article["location"]);
                 if (articlesArray.length > 0) {
                     setTimeout(function(){loadArticles(articlesArray);},BUBBLE_INTERVAL_TIME);
@@ -101,13 +122,13 @@
             }
         });
 
-        function ReloadPage() {
-            location.reload();
-        }
 
-        $(window).resize(function () {
-            ReloadPage();
-        });
+        // At the end of resizing the window, rebuild the map
+        var doit;
+        window.onresize = function(){
+          clearTimeout(doit);
+          doit = setTimeout(rebuildMap, 200);
+        };
 
       </script>
 </body>

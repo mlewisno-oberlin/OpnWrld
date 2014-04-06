@@ -37,12 +37,16 @@
 
     <script>
         var articles = [];
+        var bubblesArray = [];
         var articlesJSONAddresses = ["articles/guard.json", "articles/nyt.json"];
-        geocoder = new google.maps.Geocoder();
-        bubblesArray = [];
-        var BUBBLE_SIZE = 10; // EDIT MEEEEEE FOR BIIIIIG BUBBLES! (or tiny!)
+        var geocoder = new google.maps.Geocoder();
+         $("#jumbotron").fitText();
+        var BUBBLE_RATIO = 13.0; // How big the map is relative to the bubbles
+        var BUBBLE_SIZE = parseFloat($('#jumbotron').css("font-size")) / BUBBLE_RATIO;
+        
+        // Editable!
         var BUBBLE_INTERVAL_TIME = 1000; // Time between bubbles appearing (in ms)
-        $("#jumbotron").fitText();
+       
         var map = new Datamap({
                 scope: 'world',
                 element: document.getElementById('mapContainer'),
@@ -83,6 +87,10 @@
                 },
 
             });
+            BUBBLE_SIZE = parseFloat($('#jumbotron').css("font-size")) / BUBBLE_RATIO;
+            for (var i = 0; i < bubblesArray.length; i++) {
+                bubblesArray[i]["radius"] = BUBBLE_SIZE;
+            }
             redrawBubbles();
         }
         

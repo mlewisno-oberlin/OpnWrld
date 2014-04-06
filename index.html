@@ -9,6 +9,7 @@
     <script src="scripts/external/googleMaps.js"></script>
     <script src="scripts/external/datamaps.world.min.js"></script>
     <script src="scripts/external/handlebars-v1.3.0.js"></script>
+    <script src="scripts/external/jquery.fittext.js"></script>
     <script src="scripts/article-slice.js"></script>
     <script src="scripts/bubble_functions.js"></script>
 
@@ -30,8 +31,8 @@
 
 <body>
     
-    <h1>OpnWrld</h1>
-    <div id="mapContainer" style="position: center; height:100%"></div>
+    <div id="jumbotron"><h1>OpnWrld</h1></div>
+    <div id="mapContainer"></div>
     <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
 
     <script>
@@ -41,6 +42,7 @@
         bubblesArray = [];
         var BUBBLE_SIZE = 10; // EDIT MEEEEEE FOR BIIIIIG BUBBLES! (or tiny!)
         var BUBBLE_INTERVAL_TIME = 1000; // Time between bubbles appearing (in ms)
+        $('#jumbotron').fitText();
         
         function loadJSONArticles() {
             for (var x = 0; x < articlesJSONAddresses.length;x++) {

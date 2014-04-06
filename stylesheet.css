@@ -15,6 +15,10 @@ h1{
     font-size: 70px;
 }
 
+#mapdiv {
+    position: center;
+    height:100%
+}
 
 #bottom-link {
     text-align: center;

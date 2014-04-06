@@ -53,7 +53,8 @@
         <article class = "hoverinfo">
             <div class="header">
                 <a href={{link}}>
-                    <img src={{pic-src}}>{{article-name}}
+                    <img src={{pic}}>
+                    {{title}}
                 </a>
             </div>
             <div class="author">{{author}}</div>
@@ -70,7 +71,15 @@
 
     <script>
         var articles = [ ];
-        
+        var articlesJSONAddress = "sample.json";
+        $(document).ready(function ($) {
+            $.getJSON(articlesJSONAddress, function (data) {
+                for(var i = 0; i < data.result.length; i++){
+                    iterateJSON(data.result[i]);
+                }
+                loadArticles(articles);
+            });
+        });
         geocoder = new google.maps.Geocoder();
         bubblesArray = [];
          // EDIT MEEEEEE
@@ -95,24 +104,14 @@
             },
 
         });
-
-        var articleSample = {
-            "article-name": "Blah about Obama",
-            "author": "John Doe",
-            "location": "London",
-            "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.",
-            "link": "http://www.google.com",
-            "pic-src": "https://pbs.twimg.com/profile_images/3662988939/1f30a323c41f5ba25616408aea9b0277.png"
-        };
         
-        var articleSample2 = {
-            "article-name": "Blah ",
-            "author": "Henry Dover",
-            "location": "Beamer, OH",
-            "opening": "OMG! SOME people got Nobel Peace prizes. For Peace!!.",
-            "link": "http://www.google.com",
-            "pic-src": "http://api.flattr.com/button/flattr-badge-large.png"
-        };
+        function loadArticles(articlesArray) {
+            for (var i =0; i < articlesArray.length; i++) {
+                article = articlesArray[i];
+                addBubbleAtAddress(article,article["location"]);
+            }
+        }
+                
 
 
         function hoverInfo(geo, data) {
@@ -149,16 +148,16 @@
 
 
          // Draws a bubble at an address checked by Google Maps
-        function drawBubbleAtAddress(addressString) {
-            geocoder.geocode({
-                address: addressString
-            }, function (results, status) {
+        function addBubbleAtAddress(bubbleJSON, addressString) {
+            geocoder.geocode({address: addressString}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     lat = results[0].geometry.location.lat();
                     lon = results[0].geometry.location.lng();
-                    addBubble({location: addressString}, lat, lon);
+                    locationDictionary = {location: addressString};
+                    updatedLocationDict = mergeDicts(locationDictionary, bubbleJSON);
+                    addBubble(updatedLocationDict, lat, lon);
                 } else {
-                    console.log("Geocode was not successfulfor the following reason: " + status);
+                    console.log("Geocode was not successful on address string: " + addressString + " for the following reason: " + status);
                 }
             });
         }
@@ -175,19 +174,10 @@
 
         function createCountryBubble(countrySearchString) {
             countryName = findCountryName(countrySearchString);
-            drawBubbleAtAddress(countryName);
+            addBubbleAtAddress({}, countryName);
         }
         
-        $(document).ready(function ($) {
-        console.log(articles.length);
-        $.getJSON("sample.json",    function (data) {
-        console.log(data.result);
-        for(var i = 0; i < data.result.length; i++){
-        iterateJSON(data.result[i]);
-        }
-        console.log(articles);
-        });
-        });
+        
             
       </script>
 

@@ -3,48 +3,15 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
-    <script src="//code.jquery.com/jquery-2.0.0.js"></script>
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-    <script src="bin/handlebars-v1.3.0.js"></script>
-    <script src="guardian_parser.js"></script>
-    <script src="nyt_parser.js"></script>
+    <script src="scripts/external/jquery-2.0.0.js"></script>
+    <script src="scripts/external/d3.v3.min.js"></script>
+    <script src="scripts/external/topojson.v1.min.js"></script>
+    <script src="scripts/external/googleMaps.js"></script>
+    <script src="scripts/external/datamaps.world.min.js"></script>
+    <script src="scripts/external/handlebars-v1.3.0.js"></script>
     <script src="scripts/article-slice.js"></script>
     <script src="scripts/bubble_functions.js"></script>
-    <style>
-    #map {
-      background-color: #fff;
-      border: 5px solid #ccc;
-        height: 500px;
-    }
-    .background {
-      fill: none;
-      pointer-events: all;
-    }
-    #countries, #states {
-      fill: #cde;
-      stroke: #fff;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-    }
-    #countries .active, #states .active {
-      fill: #89a;
-    }
-    #cities {
-      stroke-width: 0;
-    }
-    .city {
-      fill: #345;
-      stroke: #fff;
-    }
-    pre.prettyprint {
-      border: 1px solid #ccc;
-      margin-bottom: 0;
-      padding: 9.5px;
-    }
-    </style>
+
     <script id="hoverTemplate" type="text/x-handlebars-template">
         <article class = "hoverinfo">
             <div class="header">
@@ -59,30 +26,34 @@
             
         </article>
     </script>
-  </head>
+</head>
 
 <body>
     
     <h1>OpnWrld</h1>
-    <div id="mapContainer" style="position: center; height=100%"></div>
+    <div id="mapContainer" style="position: center; height:100%"></div>
     <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
 
     <script>
-        var articles = [ ];
-        var articlesJSONAddress = "sample.json";
-        $(document).ready(function ($) {
-            $.getJSON(articlesJSONAddress, function (data) {
-                for(var i = 0; i < data.result.length; i++){
-                    iterateJSON(data.result[i]);
-                }
-                loadArticles(articles);
-            });
-        });
+        var articles = [];
+        var articlesJSONAddresses = ["articles/guard.json", "articles/nyt.json"];
         geocoder = new google.maps.Geocoder();
         bubblesArray = [];
-         // EDIT MEEEEEE
-        var bubbleSize = 10;
-
+        var BUBBLE_SIZE = 10; // EDIT MEEEEEE FOR BIIIIIG BUBBLES! (or tiny!)
+        var BUBBLE_INTERVAL_TIME = 1000; // Time between bubbles appearing (in ms)
+        
+        function loadJSONArticles() {
+            for (var x = 0; x < articlesJSONAddresses.length;x++) {
+                JSONAddress = articlesJSONAddresses[x];
+                $.getJSON(JSONAddress, function (data) {
+                    for(var i = 0; i < data.result.length; i++){
+                        iterateJSON(data.result[i]);
+                    }
+                    loadArticles(articles);
+                });
+            }
+        }
+        
         // Initialize the map
         var map = new Datamap({
             scope: 'world',
@@ -90,7 +61,7 @@
             popupOnHover: false,
             highlightOnHover: false,
             projection: 'equirectangular',
-
+            done: loadJSONArticles,
             fills: {
                 defaultFill: '#000000',
                 gt50: 'red'
@@ -105,16 +76,36 @@
         });
         
         function loadArticles(articlesArray) {
-            for (var i =0; i < articlesArray.length; i++) {
-                article = articlesArray[i];
+                article = articlesArray.pop();
+                console.log("adding: " + article);
                 addBubbleAtAddress(article,article["location"]);
+                if (articlesArray.length > 0) {
+                    setTimeout(function(){loadArticles(articlesArray);},BUBBLE_INTERVAL_TIME);
+                }
             }
-        }
 
         function hoverInfo(geo, data) {
             var source = $("#hoverTemplate").html(); 
             var template = Handlebars.compile(source);
             return template(data);                
-        }   
+        } 
+
+        //if click on bubble, opens link in new tab
+        $("body").bind("click", function(e) {
+            if ($(e.target).attr('class') == 'datamaps-bubble'){
+                var link = JSON.parse($(e.target).attr('data-info')).link;
+                win=window.open(link, '_blank');
+                win.focus();
+            }
+        }
+
+        function ReloadPage() {
+            location.reload();
+        }
+
+        $(window).resize(function () {
+            ReloadPage();
+        });
+
       </script>
 </body>

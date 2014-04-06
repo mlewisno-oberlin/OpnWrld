@@ -8,12 +8,28 @@
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+    <script src="bin/handlebars-v1.3.0.js"></script>
     <script src="guardian_parser.js"></script>
     <script src="nyt_parser.js"></script>
 
 </head>
 
 <body>
+    
+    <script id="hoverTemplate" type="text/x-handlebars-template">
+        <article class = "hoverinfo">
+            <div class="header">
+                <a href={{link}}>
+                    <img src={{pic-src}}>{{article-name}}
+                </a>
+            </div>
+            <div class="author">{{author}}</div>
+            <div class="location">{{location}}</div>
+            <div class="opening">{{opening}}</div>
+            
+        </article>
+    </script>
+
 
     <h1>OpnWrld</h1>
     <div id="mapContainer" style="position: center"></div>
@@ -53,15 +69,21 @@
             "link": "http://www.google.com",
             "pic-src": "https://pbs.twimg.com/profile_images/3662988939/1f30a323c41f5ba25616408aea9b0277.png"
         };
+        
+        var articleSample2 = {
+            "article-name": "Blah ",
+            "author": "Henry Dover",
+            "location": "Beamer, OH",
+            "opening": "OMG! SOME people got Nobel Peace prizes. For Peace!!.",
+            "link": "http://www.google.com",
+            "pic-src": "http://api.flattr.com/button/flattr-badge-large.png"
+        };
 
 
         function hoverInfo(geo, data) {
-            
-            returnString = "<div class='hoverinfo'>";
-            for (attrname in data) {
-                returnString += attrname + ": " + data[attrname] + '\n';
-            }
-            return returnString + "</div>";
+            var source = $("#hoverTemplate").html(); 
+            var template = Handlebars.compile(source);
+            return template(data);
                                                       
         }
         
@@ -75,7 +97,6 @@
             }
             return c;
             }
-                      
 
         function addBubble(bubbleJSON, lat, lon) {
             newBubble = {latitude: lat, longitude: lon, radius: bubbleSize, fillKey: 'gt50'};

@@ -24,8 +24,7 @@ def main():
 			'opening': story['abstract'],
 			'link': story['url'],
 			'pic': story['thumbnail_standard'],
-			'date': re.match('..........', story['updated_date']).group(),
-			'source': "NewYorkTimes"
+			'date': re.match('..........', story['updated_date']).group()
 			}
 
 		stories.append(dict)

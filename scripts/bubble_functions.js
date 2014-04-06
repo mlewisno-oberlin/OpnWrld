@@ -15,12 +15,8 @@ function redrawBubbles() {
 }
 
  function addBubble(bubbleJSON, lat, lon) {
-            if (bubbleJSON['source'] === "Guardian") {
-                newBubble = {latitude: lat, longitued: lon, raduis: BUBBLE_SIZE, fillKey: 'gt51'};
-            }
-            else {
-                newBubble = {latitude: lat, longitude: lon, radius: BUBBLE_SIZE, fillKey: 'gt50'};
-            }
+            newBubble = {latitude: lat, longitued: lon, raduis: BUBBLE_SIZE, fillKey: 'gt51'};
+            newBubble = {latitude: lat, longitude: lon, radius: BUBBLE_SIZE, fillKey: 'gt50'};
             newBubble = mergeDicts(newBubble, bubbleJSON);
             bubblesArray.push(newBubble);
             redrawBubbles();

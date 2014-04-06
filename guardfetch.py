@@ -47,8 +47,7 @@ def APIgrab():
             'opening': getOpening(story['fields']['body']),
             'link': story['webUrl'].encode('ascii', 'ignore'),
             'pic': re.match('h.*g', story['fields']['thumbnail']).group(),
-            'date': date,
-            'source': "Guardian"
+            'date': date
         }
         stories.append(dict)
         # print stories/

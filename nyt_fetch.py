@@ -1,9 +1,10 @@
 #!/usr/bin/python
 import requests, json, re
+from config import config
 
 def main():
-	api_key = 'a5b6d9051976110fda3d0563f0a7cc1e:6:67761527'
-	nyt_url = 'http://api.nytimes.com/svc/news/v3/content/all/WORLD/.json.json.json.json'
+	api_key = config['nyt_apikey']
+	nyt_url = config['nyt_url']
 
 	payload = {
 		'limit': 8,

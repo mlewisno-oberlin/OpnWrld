@@ -9,6 +9,7 @@ function iterateJSON(data) {
     var opening = data.opening;
     var link = data.link;
     var pic = data.pic;
+    var source = data.source;
 
     arraystuff = {title: title, author: author, location: location, opening: opening, link: link, pic: pic};
     

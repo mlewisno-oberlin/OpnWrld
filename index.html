@@ -12,7 +12,7 @@
     <script src="guardian_parser.js"></script>
     <script src="nyt_parser.js"></script>
     <script src="scripts/article-slice.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <script src="scripts/bubble_functions.js"></script>
     <style>
     #map {
       background-color: #fff;
@@ -45,10 +45,6 @@
       padding: 9.5px;
     }
     </style>
-  </head>
-
-<body>
-    
     <script id="hoverTemplate" type="text/x-handlebars-template">
         <article class = "hoverinfo">
             <div class="header">
@@ -63,11 +59,13 @@
             
         </article>
     </script>
+  </head>
 
-
+<body>
+    
     <h1>OpnWrld</h1>
-    <div id="mapContainer" style="position: center"></div>
-
+    <div id="mapContainer" style="position: center; height=100%"></div>
+    <div id="bottom-link"><a href="www.google.com">About Us</a></div>
 
     <script>
         var articles = [ ];
@@ -85,6 +83,7 @@
          // EDIT MEEEEEE
         var bubbleSize = 10;
 
+        // Initialize the map
         var map = new Datamap({
             scope: 'world',
             element: document.getElementById('mapContainer'),
@@ -93,15 +92,14 @@
             projection: 'equirectangular',
 
             fills: {
-                //defaultFill: '#f0af0a',
                 defaultFill: '#000000',
-                lt50: 'rgba(0,244,244,0.9)',
                 gt50: 'red'
             },
 
             geographyConfig: {
                 popupOnHover: false,
                 highlightOnHover: false
+                
             },
 
         });
@@ -112,75 +110,13 @@
                 addBubbleAtAddress(article,article["location"]);
             }
         }
-                
-
 
         function hoverInfo(geo, data) {
             var source = $("#hoverTemplate").html(); 
             var template = Handlebars.compile(source);
-            return template(data);
-                                                      
-        }
-        
-        function mergeDicts(a, b) {
-            c = {};
-            for (var attrname in a) {
-                c[attrname] = a[attrname];
-            }
-            for (var attrname in b) {
-                c[attrname] = b[attrname];
-            }
-            return c;
-            }
-
-        function addBubble(bubbleJSON, lat, lon) {
-            newBubble = {latitude: lat, longitude: lon, radius: bubbleSize, fillKey: 'gt50'};
-            newBubble = mergeDicts(newBubble, bubbleJSON);
-            bubblesArray.push(newBubble);
-            redrawBubbles();
-        }
-
-        function redrawBubbles() {
-            //bubbles, custom popup on hover template
-            map.bubbles(bubblesArray, {
-                popupTemplate: hoverInfo
-            });
-        }
-
-
-         // Draws a bubble at an address checked by Google Maps
-        function addBubbleAtAddress(bubbleJSON, addressString) {
-            geocoder.geocode({address: addressString}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    lat = results[0].geometry.location.lat();
-                    lon = results[0].geometry.location.lng();
-                    locationDictionary = {location: addressString};
-                    updatedLocationDict = mergeDicts(locationDictionary, bubbleJSON);
-                    addBubble(updatedLocationDict, lat, lon);
-                } else {
-                    console.log("Geocode was not successful on address string: " + addressString + " for the following reason: " + status);
-                }
-            });
-        }
-         // Returns the first country name from a string
-        function findCountryName(countrySearchString) {
-            foundCountriesArray = getLocale(countrySearchString)
-            if (foundCountriesArray[0] == true) {
-                return foundCountriesArray[1];
-            } else {
-                console.log("Country " + countrySearchString + "not found! Defaulting to U.K.");
-                return "United Kingdom";
-            }
-        }
-
-        function createCountryBubble(countrySearchString) {
-            countryName = findCountryName(countrySearchString);
-            addBubbleAtAddress({}, countryName);
-        }
-        
-        
-            
+            return template(data);                
+        }   
       </script>
-    <div id="bottom-link"><a href="www.google.com">About Us</a></div>
+    
 
 </body>

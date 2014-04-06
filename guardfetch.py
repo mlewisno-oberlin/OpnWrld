@@ -13,8 +13,8 @@ def getLocale(string):
     return "United Kingdom"
 
 def getOpening(string):
-    if re.match('.*?/p>', string) is not None:
-        return re.match('.*?/p>', string).group()
+    if re.search('<p.*?\.', string) is not None:
+        return re.search('<p.*?\.', string).group()[3:]
     else:
         return "";
 
@@ -46,7 +46,7 @@ def APIgrab():
             'location': getLocale(story['webTitle']),
             'opening': getOpening(story['fields']['body']),
             'link': story['webUrl'].encode('ascii', 'ignore'),
-            'pic': re.match('".*"', story['fields']['thumbnail']).group(),
+            'pic': re.match('h.*g', story['fields']['thumbnail']).group(),
             'date': date
         }
         stories.append(dict)

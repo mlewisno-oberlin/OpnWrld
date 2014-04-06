@@ -54,6 +54,8 @@ a {
     font-family: sans-serif;
     color: black;
     font-weight: bold;
+    text-align: center;
+   
 }
 
 .header {
@@ -69,4 +71,42 @@ a {
     border: solid black 5px;
     border-radius: 10px;
     width: 200px;
+}
+
+.location {
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#title {
+    
+}
+
+.title {
+     text-align: center;
+}
+
+.opening {
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+    font-size: 10px;
+    margin-left: 5%;
+}
+
+.headerpic {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    border: solid black 2px;
+    display: block;
+}
+
+
+
+.wrapper {
+    width: 100%;
 }

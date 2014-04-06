@@ -15,7 +15,7 @@ function redrawBubbles() {
 }
 
  function addBubble(bubbleJSON, lat, lon) {
-            newBubble = {latitude: lat, longitude: lon, radius: bubbleSize, fillKey: 'gt50'};
+            newBubble = {latitude: lat, longitude: lon, radius: BUBBLE_SIZE, fillKey: 'gt50'};
             newBubble = mergeDicts(newBubble, bubbleJSON);
             bubblesArray.push(newBubble);
             redrawBubbles();

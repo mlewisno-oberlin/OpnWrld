@@ -35,24 +35,25 @@
     <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
 
     <script>
-        var articles = [ ];
-        var articlesJSONAddress = "sample.json";
+        var articles = [];
+        var articlesJSONAddresses = ["articles/guard.json", "articles/nyt.json"];
         geocoder = new google.maps.Geocoder();
         bubblesArray = [];
-        // EDIT MEEEEEE
-        var bubbleSize = 10;
+        var BUBBLE_SIZE = 10; // EDIT MEEEEEE FOR BIIIIIG BUBBLES! (or tiny!)
+        var BUBBLE_INTERVAL_TIME = 1000; // Time between bubbles appearing (in ms)
         
-        $(document).ready(function ($) {
-            $.getJSON(articlesJSONAddress, function (data) {
-                for(var i = 0; i < data.result.length; i++){
-                    iterateJSON(data.result[i]);
-                }
-                loadArticles(articles);
-            });
-        });
+        function loadJSONArticles() {
+            for (var x = 0; x < articlesJSONAddresses.length;x++) {
+                JSONAddress = articlesJSONAddresses[x];
+                $.getJSON(JSONAddress, function (data) {
+                    for(var i = 0; i < data.result.length; i++){
+                        iterateJSON(data.result[i]);
+                    }
+                    loadArticles(articles);
+                });
+            }
+        }
         
-         
-
         // Initialize the map
         var map = new Datamap({
             scope: 'world',
@@ -60,7 +61,7 @@
             popupOnHover: false,
             highlightOnHover: false,
             projection: 'equirectangular',
-
+            done: loadJSONArticles,
             fills: {
                 defaultFill: '#000000',
                 gt50: 'red'
@@ -75,11 +76,13 @@
         });
         
         function loadArticles(articlesArray) {
-            for (var i =0; i < articlesArray.length; i++) {
-                article = articlesArray[i];
+                article = articlesArray.pop();
+                console.log("adding: " + article);
                 addBubbleAtAddress(article,article["location"]);
+                if (articlesArray.length > 0) {
+                    setTimeout(function(){loadArticles(articlesArray);},BUBBLE_INTERVAL_TIME);
+                }
             }
-        }
 
         
       </script>

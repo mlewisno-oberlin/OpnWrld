@@ -28,7 +28,7 @@ def APIgrab():
         url,
         params={
            'api-key': api_key,
-           'page-size': 5,
+           'page-size': 10,
            'show-fields': "body,body,thumbnail,byline",
            'from-date': date,
            'to-date': date,

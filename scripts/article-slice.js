@@ -11,6 +11,5 @@ function iterateJSON(data) {
     var pic = data.pic;
 
     arraystuff = {title: title, author: author, location: location, opening: opening, link: link, pic: pic};
-    
     articles.push(arraystuff);
 }

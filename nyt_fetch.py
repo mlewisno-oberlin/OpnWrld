@@ -1,9 +1,9 @@
 #!/usr/bin/python
-import requests, json, pprint
+import requests, json, re
 
 def main():
 	api_key = 'a5b6d9051976110fda3d0563f0a7cc1e:6:67761527'
-	nyt_url = 'http://api.nytimes.com/svc/news/v3/content/all/all/.json.json.json.json'
+	nyt_url = 'http://api.nytimes.com/svc/news/v3/content/all/WORLD/.json.json.json.json'
 
 	payload = {
 		'limit': 8,
@@ -18,7 +18,7 @@ def main():
 
 		dict = {
 			'title': story['title'],
-			'author': story['byline'],
+			'author': (re.match(r'/^BY', story['byline'])).title(),
 			'location': story['geo_facet'][0] if story['geo_facet'] else '',
 			'opening': story['abstract'],
 			'link': story['url'],

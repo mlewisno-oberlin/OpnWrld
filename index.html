@@ -86,9 +86,24 @@
                 }
             }
 
+        function hoverInfo(geo, data) {
+            var source = $("#hoverTemplate").html(); 
+            var template = Handlebars.compile(source);
+            return template(data);                
+        } 
+
+        //if click on bubble, opens link in new tab
+        $("body").bind("click", function(e) {
+            if ($(e.target).attr('class') == 'datamaps-bubble'){
+                var link = JSON.parse($(e.target).attr('data-info')).link;
+                win=window.open(link, '_blank');
+                win.focus();
+            }
+        });
+
         function ReloadPage() {
             location.reload();
-        };
+        }
 
         $(window).resize(function () {
             ReloadPage();

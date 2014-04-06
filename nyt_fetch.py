@@ -6,7 +6,7 @@ def main():
 	nyt_url = 'http://api.nytimes.com/svc/news/v3/content/all/all/.json.json.json.json'
 
 	payload = {
-		'limit': 4,
+		'limit': 8,
 		'api-key': api_key
 	}
 
@@ -26,10 +26,9 @@ def main():
 			}
 
 		stories.append(dict)
-
-	rtn = json.dumps({'result': stories})
 	
-	
+	with open('articles/nyt.json', 'w') as outfile:
+  		json.dump({'result': stories}, outfile)
 
 main()
 

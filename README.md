@@ -1,45 +1,5 @@
-Open World to do list
+Our website hosts an aggregate of news articles from a variety of news sources (currently the New York Times and The Guardian ). Leading articles from the day are posted via a map of the world. On the map each breaking story is represented by a colored bubble. Upon placing the cursor on the bubble, a popup appears with the author, a summary of the article, and a picture if provided. Upon clicking on the bubble, the full article is pulled up in a new tab.
 
-Set up basic geo data map of the world. - Laura's on it
-Extract locational data from recent articles. - Done for 
+In terms of features we'd like to see added, we'd really like to have a larger amount of stories represented, with perhaps the added feature of, when one mouses-over a particular countries set of dots, they expand for easier selection (right now they just stack, and the last one added is the only one accessible.) We'd also like to add some sort of scrollbar that would let you choose a day from the last week to view the breaking stories of that day. We'd also like a more sophisticated location lookup and a better article selection process for a varied yet relevant result.
 
-http://content.guardianapis.com/search?api-key=dvwfajkrb36g8qfrbwqkk9xj&from-date=2014-04-4&section=world&order-by=relevance&format=json
-
-need a simple javascript function to pull out the country
-
-Its in the title for world articles, working on news ones
-
-Use the location to get geo coordinates - figured that out
-Use the coords to add a point on the map
-Use the mouse over function to allow for the article to be "popped up"
-
-
-Our APIs
-
-API Group
-http://dev.mashery.com/apis#media
-Guardian API
-http://www.theguardian.com/open-platform/content-api-content-search-reference-guide?guni=Article:in%20body%20link
-Time API
-http://developer.nytimes.com/docs/read/article_search_api_v2#h2-requests
-
-Our API keys
-
-NYT
-38f853a630a887e7c24226b35db8e7a2:13:69142876
-
-Guardian
-dvwfajkrb36g8qfrbwqkk9xj
-
-Resources:
-
-Our python server tutorial
-python -m SimpleHTTPServer 8008
-
-Our map tutorial:
-http://www.tnoda.com/blog/2013-12-07
-
-Our sample JSON 
-
-JQUERY shtuff
-http://api.jquery.com/hover/
+Side note: currently only supported in Chrome and Safari, does not build map correctly in Firefox and has not been tested on IE

@@ -115,6 +115,15 @@
             var source = $("#hoverTemplate").html(); 
             var template = Handlebars.compile(source);
             return template(data);                
-        }   
+        }
+
+        function ReloadPage() {
+            location.reload();
+        };
+
+        $(window).resize(function () {
+            ReloadPage();
+        });
+
       </script>
 </body>

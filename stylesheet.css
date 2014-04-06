@@ -8,6 +8,7 @@ body{
 
 .hoverinfo {
     color:blue;
+    margin-left: 100px;
 }
 
 h1{
@@ -34,9 +35,38 @@ h1{
     text-decoration: none;
     color: black;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 a {
     text-decoration: none;
     color: black;
+    float: top;
+}
+
+.clickable {
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+}
+
+.author {
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+}
+
+.header {
+    
+    font-family: sans-serif;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+
+#container {
+    border: solid black 5px;
+    border-radius: 10px;
+    width: 200px;
 }

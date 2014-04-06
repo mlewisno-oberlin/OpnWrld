@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <head>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
     <script src="//code.jquery.com/jquery-2.0.0.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+    <script src="bin/handlebars-v1.3.0.js"></script>
     <script src="guardian_parser.js"></script>
     <script src="nyt_parser.js"></script>
     <script src="scripts/article-slice.js"></script>
@@ -43,10 +47,8 @@
     </style>
   </head>
 
-    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-    <script src="guardian_parser.js"></script>
-</head>
 <body>
+<<<<<<< HEAD:index.html.old
   
   <h2>OpnWrld</h2>
   <div id="container1" style="position: center; width: 80%; max-height: 450px;"></div>
@@ -112,39 +114,132 @@
          };
          
      </script>
+=======
+    
+    <script id="hoverTemplate" type="text/x-handlebars-template">
+        <article class = "hoverinfo">
+            <div class="header">
+                <a href={{link}}>
+                    <img src={{pic-src}}>{{article-name}}
+                </a>
+            </div>
+            <div class="author">{{author}}</div>
+            <div class="location">{{location}}</div>
+            <div class="opening">{{opening}}</div>
+            
+        </article>
+    </script>
+
+
+    <h1>OpnWrld</h1>
+    <div id="mapContainer" style="position: center"></div>
+
+>>>>>>> FETCH_HEAD:index.html
 
     <script>
-        
         geocoder = new google.maps.Geocoder();
-       
-        // Grabs the coords for the resultant country (city later on)
+        bubblesArray = [];
+         // EDIT MEEEEEE
+        var bubbleSize = 10;
+
+        var map = new Datamap({
+            scope: 'world',
+            element: document.getElementById('mapContainer'),
+            popupOnHover: false,
+            highlightOnHover: false,
+            projection: 'equirectangular',
+
+            fills: {
+                defaultFill: '#f0af0a',
+                lt50: 'rgba(0,244,244,0.9)',
+                gt50: 'red'
+            },
+
+            geographyConfig: {
+                popupOnHover: false,
+                highlightOnHover: false
+            },
+
+        });
+
+        var articleSample = {
+            "article-name": "Blah about Obama",
+            "author": "John Doe",
+            "location": "London",
+            "opening": "Three people got Nobel Peace prizes. They got them after invading another 3rd world country no one cares about.",
+            "link": "http://www.google.com",
+            "pic-src": "https://pbs.twimg.com/profile_images/3662988939/1f30a323c41f5ba25616408aea9b0277.png"
+        };
+        
+        var articleSample2 = {
+            "article-name": "Blah ",
+            "author": "Henry Dover",
+            "location": "Beamer, OH",
+            "opening": "OMG! SOME people got Nobel Peace prizes. For Peace!!.",
+            "link": "http://www.google.com",
+            "pic-src": "http://api.flattr.com/button/flattr-badge-large.png"
+        };
+
+
+        function hoverInfo(geo, data) {
+            var source = $("#hoverTemplate").html(); 
+            var template = Handlebars.compile(source);
+            return template(data);
+                                                      
+        }
+        
+        function mergeDicts(a, b) {
+            c = {};
+            for (var attrname in a) {
+                c[attrname] = a[attrname];
+            }
+            for (var attrname in b) {
+                c[attrname] = b[attrname];
+            }
+            return c;
+            }
+
+        function addBubble(bubbleJSON, lat, lon) {
+            newBubble = {latitude: lat, longitude: lon, radius: bubbleSize, fillKey: 'gt50'};
+            newBubble = mergeDicts(newBubble, bubbleJSON);
+            bubblesArray.push(newBubble);
+            redrawBubbles();
+        }
+
+        function redrawBubbles() {
+            //bubbles, custom popup on hover template
+            map.bubbles(bubblesArray, {
+                popupTemplate: hoverInfo
+            });
+        }
+
+
+         // Draws a bubble at an address checked by Google Maps
         function drawBubbleAtAddress(addressString) {
-            geocoder.geocode( { address: addressString}, function(results, status) {
+            geocoder.geocode({
+                address: addressString
+            }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     lat = results[0].geometry.location.lat();
                     lon = results[0].geometry.location.lng();
-                    createBubble(lat,lon);
+                    addBubble({location: addressString}, lat, lon);
                 } else {
-                    console.log("Geocode was not successful for the following reason: " + status);
+                    console.log("Geocode was not successfulfor the following reason: " + status);
                 }
             });
         }
-        
-        // Parses out the locale from a string, will get called once per article on the title
-        function findCountryName(countrySearchString){
-            
+         // Returns the first country name from a string
+        function findCountryName(countrySearchString) {
             foundCountriesArray = getLocale(countrySearchString)
-            if(foundCountriesArray[0]==true){
+            if (foundCountriesArray[0] == true) {
                 return foundCountriesArray[1];
-            }
-            else {
-                console.log("Country " + countrySearchString + " not found! Defaulting to U.K.");
+            } else {
+                console.log("Country " + countrySearchString + "not found! Defaulting to U.K.");
                 return "United Kingdom";
             }
         }
-        
-        function createCountryBubble() {
-            countrySearchString = document.getElementById("search").value;
+
+        function createCountryBubble(countrySearchString) {
             countryName = findCountryName(countrySearchString);
             drawBubbleAtAddress(countryName);
         }
@@ -162,10 +257,12 @@
         console.log(articles);
         
       </script>
+
     <form action="#" onsubmit="createCountryBubble(this.countrySearchString.value); return false">
-        Enter a country: <input type="text" name="countrySearchString" id="search">
-        <br>
-        Submit: <input type="submit" value="Bubble!">
+        Enter a country:
+        <input type="text" name="countrySearchString">
+        <br>Submit:
+        <input type="submit" value="Bubble!">
     </form>
     <script>
        console.log(articles);

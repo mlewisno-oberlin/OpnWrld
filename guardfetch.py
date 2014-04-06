@@ -29,7 +29,7 @@ def APIgrab():
         params={
            'api-key': api_key,
            'page-size': 10,
-           'show-fields': "body,body,thumbnail,byline",
+           'show-fields': "byline,body,thumbnail",
            'from-date': date,
            'to-date': date,
            'section': 'world',
@@ -40,9 +40,11 @@ def APIgrab():
     content = json.loads(APIcall.content)
     stories = []
     for story in content['response']['results']:
+        try: byline = story['fields']['byline']
+        except KeyError: byline = "author not found"
         dict = {
             'title': story['webTitle'].encode('ascii', 'ignore'),
-            'author': story['fields']['byline'].encode('ascii', 'ignore'),
+            'author': byline,
             'location': getLocale(story['webTitle']),
             'opening': getOpening(story['fields']['body']),
             'link': story['webUrl'].encode('ascii', 'ignore'),

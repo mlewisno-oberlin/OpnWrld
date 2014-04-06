@@ -3,48 +3,15 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
-    <script src="//code.jquery.com/jquery-2.0.0.js"></script>
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-    <script src="bin/handlebars-v1.3.0.js"></script>
-    <script src="guardian_parser.js"></script>
-    <script src="nyt_parser.js"></script>
+    <script src="scripts/external/jquery-2.0.0.js"></script>
+    <script src="scripts/external/d3.v3.min.js"></script>
+    <script src="scripts/external/topojson.v1.min.js"></script>
+    <script src="scripts/external/googleMaps.js"></script>
+    <script src="scripts/external/datamaps.world.min.js"></script>
+    <script src="scripts/external/handlebars-v1.3.0.js"></script>
     <script src="scripts/article-slice.js"></script>
     <script src="scripts/bubble_functions.js"></script>
-    <style>
-    #map {
-      background-color: #fff;
-      border: 5px solid #ccc;
-        height: 500px;
-    }
-    .background {
-      fill: none;
-      pointer-events: all;
-    }
-    #countries, #states {
-      fill: #cde;
-      stroke: #fff;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-    }
-    #countries .active, #states .active {
-      fill: #89a;
-    }
-    #cities {
-      stroke-width: 0;
-    }
-    .city {
-      fill: #345;
-      stroke: #fff;
-    }
-    pre.prettyprint {
-      border: 1px solid #ccc;
-      margin-bottom: 0;
-      padding: 9.5px;
-    }
-    </style>
+
     <script id="hoverTemplate" type="text/x-handlebars-template">
         <article class = "hoverinfo">
             <div class="header">
@@ -59,17 +26,22 @@
             
         </article>
     </script>
-  </head>
+</head>
 
 <body>
     
     <h1>OpnWrld</h1>
-    <div id="mapContainer" style="position: center; height=100%"></div>
+    <div id="mapContainer" style="position: center; height:100%"></div>
     <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
 
     <script>
         var articles = [ ];
         var articlesJSONAddress = "sample.json";
+        geocoder = new google.maps.Geocoder();
+        bubblesArray = [];
+        // EDIT MEEEEEE
+        var bubbleSize = 10;
+        
         $(document).ready(function ($) {
             $.getJSON(articlesJSONAddress, function (data) {
                 for(var i = 0; i < data.result.length; i++){
@@ -78,10 +50,8 @@
                 loadArticles(articles);
             });
         });
-        geocoder = new google.maps.Geocoder();
-        bubblesArray = [];
-         // EDIT MEEEEEE
-        var bubbleSize = 10;
+        
+         
 
         // Initialize the map
         var map = new Datamap({
@@ -111,10 +81,6 @@
             }
         }
 
-        function hoverInfo(geo, data) {
-            var source = $("#hoverTemplate").html(); 
-            var template = Handlebars.compile(source);
-            return template(data);                
-        }   
+        
       </script>
 </body>

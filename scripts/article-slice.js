@@ -1,4 +1,4 @@
-// var articles = [ ];
+// var articles = [ ]; (this is done in index.html)
 
 function iterateJSON(data) {
     var arraystuff = {};
@@ -13,21 +13,4 @@ function iterateJSON(data) {
     arraystuff = {title: title, author: author, location: location, opening: opening, link: link, pic: pic};
     
     articles.push(arraystuff);
-   // console.log(articles);
 }
-
-/* $(document).ready(function ($) {
-    console.log(articles.length);
-    $.getJSON("sample.json",    function (data) {
-        console.log(data.result);
-        for(var i = 0; i < data.result.length; i++){
-            iterateJSON(data.result[i]);
-        }
-        console.log(articles);
-    });
- });
-*/
-
-
-
-

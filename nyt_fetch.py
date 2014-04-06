@@ -18,7 +18,7 @@ def main():
 
 		dict = {
 			'title': story['title'],
-			'author': (re.match(r'/^BY', story['byline'])).title(),
+			'author': story['byline'].title(),
 			'location': story['geo_facet'][0] if story['geo_facet'] else '',
 			'opening': story['abstract'],
 			'link': story['url'],

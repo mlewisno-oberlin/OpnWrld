@@ -53,6 +53,7 @@
  
      
      <script>
+         var articles = [ ];
          bubblesArray = [];
          
        //basic map config with custom fills, mercator projection
@@ -147,12 +148,27 @@
             countryName = findCountryName(countrySearchString);
             drawBubbleAtAddress(countryName);
         }
-            
+        
+        $(document).ready(function ($) {
+        console.log(articles.length);
+        $.getJSON("sample.json",    function (data) {
+        console.log(data.result);
+        for(var i = 0; i < data.result.length; i++){
+        iterateJSON(data.result[i]);
+        }
+        });
+        });
+        
+        console.log(articles);
+        
       </script>
     <form action="#" onsubmit="createCountryBubble(this.countrySearchString.value); return false">
         Enter a country: <input type="text" name="countrySearchString" id="search">
         <br>
         Submit: <input type="submit" value="Bubble!">
     </form>
+    <script>
+       console.log(articles);
+    </script>
 
 </body>

@@ -1,28 +1,22 @@
-var articles = [ ];
+// var articles = [ ];
 
 function iterateJSON(data) {
-    var x = 1;
-    var counter = 0;
+    var arraystuff = {};
     
-    var arraystuff = [];
-            var title = data.title;
-            var author = data.author;
-            var location = data.location;
-            var opening = data.opening;
-            var link = data.link;
-            var pic = data.pic;
+    var title = data.title;
+    var author = data.author;
+    var location = data.location;
+    var opening = data.opening;
+    var link = data.link;
+    var pic = data.pic;
 
-            arraystuff.push(title);
-            arraystuff.push(author);
-            arraystuff.push(location);
-            arraystuff.push(opening);
-            arraystuff.push(link);
-            arraystuff.push(pic);
-            articles.push(arraystuff);
+    arraystuff = {title: title, author: author, location: location, opening: opening, link: link, pic: pic};
+    
+    articles.push(arraystuff);
+   // console.log(articles);
 }
 
-
-$(document).ready(function ($) {
+/* $(document).ready(function ($) {
     console.log(articles.length);
     $.getJSON("sample.json",    function (data) {
         console.log(data.result);
@@ -31,7 +25,8 @@ $(document).ready(function ($) {
         }
         console.log(articles);
     });
-});
+ });
+*/
 
 
 

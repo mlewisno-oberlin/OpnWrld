@@ -102,6 +102,7 @@
             newBubble = {latitude: lat, longitude: lon, radius: bubbleSize, fillKey: 'gt50'};
             newBubble = mergeDicts(newBubble, bubbleJSON);
             bubblesArray.push(newBubble);
+            redrawBubbles();
         }
 
         function redrawBubbles() {
@@ -112,7 +113,6 @@
         }
 
 
-
          // Draws a bubble at an address checked by Google Maps
         function drawBubbleAtAddress(addressString) {
             geocoder.geocode({
@@ -121,8 +121,7 @@
                 if (status == google.maps.GeocoderStatus.OK) {
                     lat = results[0].geometry.location.lat();
                     lon = results[0].geometry.location.lng();
-                    addBubble({}, lat, lon);
-                    redrawBubbles();
+                    addBubble({location: addressString}, lat, lon);
                 } else {
                     console.log("Geocode was not successfulfor the following reason: " + status);
                 }
@@ -134,7 +133,7 @@
             if (foundCountriesArray[0] == true) {
                 return foundCountriesArray[1];
             } else {
-                console.log("Country " + countrySearchString + "not found!Defaulting to U.K. ");
+                console.log("Country " + countrySearchString + "not found! Defaulting to U.K.");
                 return "United Kingdom";
             }
         }

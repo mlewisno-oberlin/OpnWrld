@@ -110,3 +110,10 @@ a {
 .wrapper {
     width: 100%;
 }
+
+.container {
+      border: solid black 5px;
+    border-radius: 10px;
+    width: 200px;
+    margin: 0px;
+}

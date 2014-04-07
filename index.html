@@ -15,15 +15,17 @@
 
     <script id="hoverTemplate" type="text/x-handlebars-template">
         <article class = "hoverinfo">
-            <div class="header">
-                <a href={{link}}>
-                    <img src={{pic}}>
-                    {{title}}
-                </a>
+            <div class="container">
+                <div class="header">
+                    <a href={{link}}>
+                        <img src={{pic}}>
+                        {{title}}
+                    </a>
+                </div>
+                <div class="author">{{author}}</div>
+                <div class="location">{{location}}</div>
+                <div class="opening">{{opening}}</div>  
             </div>
-            <div class="author">{{author}}</div>
-            <div class="location">{{location}}</div>
-            <div class="opening">{{opening}}</div>  
         </article>
     </script>
 </head>
@@ -32,7 +34,7 @@
     
     <div id="jumbotron">OpenWorld</div>
     <div id="mapContainer"></div>
-    <div id="bottom-link"><a href="aboutus.html">About Us</a></div>
+    <div id="bottom-link"><a href="aboutus.html">About Us</a> | <a href="https://github.com/mlewisno/OpnWrld">Github</a></div>
 
     <script>
         var articles = [];

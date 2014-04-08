@@ -8,7 +8,7 @@ body{
 
 .hoverinfo {
     color:blue;
-    /*margin-left: 100px;*/
+    margin-left: 100px;
 }
 
 h1{
@@ -116,4 +116,7 @@ a {
     border-radius: 10px;
     width: 200px;
     margin: 0px;
+}
+
+#hoverTemplate {
 }
